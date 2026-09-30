@@ -1,0 +1,5 @@
+import React from 'react';
+import {AlertTriangle,CheckCircle2} from 'lucide-react';
+export function Bars({items,max=100,suffix='%',label}){return <div className="bars" role="img" aria-label={label||items.map(x=>`${x.label}: ${x.value}${suffix}`).join(', ')}>{items.map((x,i)=><div className="bar-row" key={i}><span>{x.label}</span><div><i style={{width:Math.max(0,Math.min(x.value/max*100,100))+'%',background:x.color||'var(--accent)'}}/></div><b>{x.value}{suffix}</b></div>)}</div>}
+export function DataTable({headers,rows}){return <div className="table-wrapper lab-table"><table><thead><tr>{headers.map((h,i)=><th key={i}>{h}</th>)}</tr></thead><tbody>{rows.length?rows.map((r,i)=><tr key={i}>{r.map((v,j)=><td key={j}>{v===null?'NULL':String(v)}</td>)}</tr>):<tr><td colSpan={headers.length}>결과 없음</td></tr>}</tbody></table></div>}
+export function Message({children,error=false}){return <div className={`lab-message ${error?'error':''}`} role="status">{error?<AlertTriangle size={16}/>:<CheckCircle2 size={16}/>}<span>{children}</span></div>}
