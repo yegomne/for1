@@ -6,6 +6,16 @@ BUILD / 90 — AI 개발 실습실
 기록 내보내기로 JSON 백업을 만들 수 있습니다.
 모든 과정은 자유롭게 이동할 수 있습니다.
 
+쉽게 시작하기
+- 오늘 할 일: 작은 목표 하나·이유·시작 화면을 읽으세요.
+- 작은 실습 시작: 세 단계를 따라 하고, 필요하면 AI 요청을 복사하세요.
+- 성공 확인: 결과 두 가지를 직접 확인하고 완료를 누르세요.
+- 기본은 10~15분입니다. 심화와 과정 전체 퀴즈는 선택입니다.
+- 1일차는 파일 이름과 상품 제목만 읽습니다. Git 조작은 하루씩 나눠 배웁니다.
+- 가상 상품·가상 사용자만 사용합니다. 실제 고객정보나 실행 중인 다른 프로젝트를 사용하지 마세요.
+- GPT Work 또는 Claude 대화에서 예시·설명을 받습니다. 안티그래비티에 실제 조작을 명령할 필요는 없습니다.
+- 저장 키와 기존 완료일·메모는 유지했습니다. 주소나 브라우저를 바꾸면 기록 저장 위치도 달라집니다.
+
 실습 범위
 - SQL: 실제 SQLite 엔진으로 실행합니다. 새로고침하면 실습 DB가 초기화됩니다.
 - Git·API·Docker·아키텍처·RAG·Agent·Eval: 학습용 시뮬레이션입니다.
@@ -16,12 +26,16 @@ BUILD / 90 — AI 개발 실습실
 
 개발·수정
 src/curriculum.js: 90일 과정과 과제
+src/mission-guides.js: 90개 미션의 단계별 초보자 안내
+src/mission-ui.jsx: AI 요청 복사와 선택 심화 화면
+src/learning-state.js: 기존 진도 기록 호환
 src/main.jsx: 교육 화면, 진행률, 기록
 src/labs-*.jsx: 과정별 실습
 src/style.css: 디자인, 반응형, 집중 모드
 npm install
 npm run dev
 npm run build
+npm test
 node scripts/standalone.mjs
 
 React / Three.js / GSAP / SQL.js 기반. 외부 API 키 없이 이용합니다.
