@@ -25,11 +25,11 @@ function App(){const initial=useRef(readState()).current;const[day,D]=useState(i
  <details className="optional-details"><summary>선택 참고 · 이 과정의 전체 구조와 용어</summary><Flow items={mod.flow}/><div className="table-wrapper"><table className="concept-table"><thead><tr><th>핵심 개념</th><th>쉬운 설명</th></tr></thead><tbody>{mod.concepts.map(([a,b])=><tr key={a}><td>{a}</td><td>{b}</td></tr>)}</tbody></table></div></details>
  </>:tab==='lab'?<>
  <MissionGuide guide={lesson.guide}/>
- <details key={day} className="practice-details" open={lesson.guide.simulator}><summary>{lesson.guide.simulator?'오늘의 연습 화면':'선택 참고 · 이 과정의 연습 화면'}</summary><div className="lab-notice"><FlaskConical size={14}/>{mod.id==='db'?'실습용 SQLite · 실제 고객정보 없음':'브라우저 안의 학습 모형 · 실제 앱 조작 없음'}</div><Lab key={`${mod.id}-${day}`} id={mod.id} day={day}/></details>
+ <details key={day} className="practice-details" open={lesson.guide.simulator}><summary>{lesson.guide.simulator?'직접 바꿔보는 연습 화면':'선택 심화 · 이 과정의 실습실'}</summary><div className="lab-notice"><FlaskConical size={14}/>{mod.id==='db'?'실습용 SQLite · 실제 고객정보 없음':'브라우저 안의 학습 모형 · 실제 앱 조작 없음'}</div><Lab key={`${mod.id}-${day}`} id={mod.id} day={day}/></details>
  <label className="note-label" htmlFor="learning-note">실습 기록 <span>직접 확인한 결과 한 줄이면 충분합니다</span></label><textarea id="learning-note" value={notes[day]||''} onChange={e=>N({...notes,[day]:e.target.value})} placeholder={lesson.guide.result+' — 확인한 내용을 적으세요.'}/>
  <button className="primary" onClick={()=>T('check')}>성공 확인으로 이동</button>
  </>:<>
- <div className="lesson-intro"><span className="tiny-label">오늘의 성공 기준</span><h3>{lesson.guide.goal}</h3><p>AI의 설명만으로 완료하지 마세요. 아래 결과를 직접 확인하고 표시해 주세요.</p></div>
+ <div className="lesson-intro"><span className="tiny-label">오늘의 성공 기준</span><h3>{lesson.guide.goal}</h3><p>준비된 샘플 또는 직접 실습한 결과를 확인하고 표시해 주세요.</p></div>
  <div className="success-checks">{lesson.guide.checks.map((check,i)=><label key={check}><input type="checkbox" checked={checked.includes(i)} onChange={e=>K(a=>e.target.checked?[...a,i]:a.filter(n=>n!==i))}/><span>{check}</span></label>)}</div>
  <p className="small-scope">기대 결과: {lesson.guide.result}</p>
  <div className="complete-actions"><button className="primary" disabled={checked.length!==lesson.guide.checks.length} onClick={finish}><Check size={16}/>{completed.includes(day)?'완료 기록됨':'오늘 학습 완료'}</button><button className="secondary" onClick={()=>T('lab')}>실습 다시 보기</button>{completed.includes(day)&&day<90&&<button className="secondary" onClick={()=>select(day+1)}>다음 학습일</button>}</div>

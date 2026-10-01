@@ -1,3 +1,4 @@
+import {preparedSamples} from './prepared-samples.js';
 // 순서는 기존 DAY 1–90과 같습니다. 학습 기록의 날짜/ID는 변경하지 않습니다.
 const places = {
   C: 'GPT Work 또는 Claude의 새 대화창을 여세요. 메모장에 결과를 남기셔도 됩니다. 설치나 실제 서비스 연결은 필요 없습니다.',
@@ -108,10 +109,24 @@ const rows = [
 export const missionGuides = rows.map(([goal, why, place, action, result, checks, help, extra], index) => {
   const request = `저는 온라인 판매 경험이 있는 1인 개발자이며 AI가 코딩을 도와주는 환경을 사용합니다.\n오늘은 DAY ${index + 1}, “${goal}”만 연습합니다.\n가상 상품 소개 예시로 아래 행동을 한 단계씩 쉽게 설명해 주세요. 어려운 용어에는 한국어 풀이를 붙여 주세요.\n${action.split(/(?<=\.)\s*;/u).join('\n')}\n제가 직접 확인할 결과: ${result}\n성공 기준:\n${checks.split(';').join('\n')}\nAI가 맡을 일과 제가 확인할 일을 나눠 주세요. 모르는 사실은 추측하지 마세요. 실제 고객정보, 실제 앱·다른 프로젝트 조작, 업로드·배포 없이 설명과 예시만 주세요.`;
   return {
-    day: index + 1, goal, why, start: places[place], simulator: place !== 'C',
-    steps: action.split(/(?<=\.)\s*;/u).map((text, i) => ({ actor: place === 'C' && i === 1 ? 'AI에 요청' : '직접 확인·실행', text })),
-    request, result, checks: checks.split(';'), help, extra, minutes: place === 'C' ? 10 : 15,
-    aiRole: place === 'C' ? '아래 요청을 받아 작은 예시·표를 만들고 용어를 풀어 설명합니다.' : '이 화면의 가상 결과나 오류를 쉽게 설명합니다. 실제 프로그램을 조작할 필요는 없습니다.',
+    day: index + 1, goal, why,
+    start: '「작은 실습 시작」을 누르세요. 오늘의 완성 예제와 결과 표가 이미 준비되어 있습니다.',
+    simulator: place !== 'C', sample: preparedSamples[index],
+    steps: [
+      {actor:'완성 예제',text:'아래 준비된 샘플의 표와 처리 흐름을 확인하세요.'},
+      {actor:'직접 비교',text:place==='C'?'예제에서 입력과 결과의 관계를 비교하세요. 상품 이름 입력칸이 있으면 값을 바꿔 적용해 보세요.':'아래 「직접 바꿔보는 연습 화면」에서 샘플과 같은 조작을 해 보세요.'},
+      {actor:'성공 확인',text:'샘플의 결과를 직접 확인한 뒤 「성공 확인」에서 오늘의 기준을 표시하세요.'},
+    ],
+    request,
+    result: `${preparedSamples[index].headers.join(' · ')}를 정리한 오늘의 완성 예제 표`,
+    checks: [
+      `${preparedSamples[index].flow[0]}에서 ${preparedSamples[index].flow.at(-1)}까지의 관계를 구분했습니다.`,
+      preparedSamples[index].insight,
+    ],
+    help: '먼저 샘플의 「핵심 이해」 한 문장을 읽으세요. 입력·결과 표를 한 행씩 비교하면 됩니다.',
+    extra: index===83?'같은 표의 질문을 10개로 늘린 뒤 실제 필요할 때 100개로 확장하세요.':place==='C'?'이 과정의 전체 구조·용어 표를 열어 오늘 예제가 어디에 해당하는지 연결해 보세요.':extra,
+    minutes: place === 'C' ? 10 : 15,
+    aiRole: '예제·설명·기대 결과가 페이지에 준비되어 있습니다. 외부 AI나 새 대화창은 필요 없습니다.',
     userRole: '아래 성공 기준을 직접 확인하고, 맞는지 판단한 뒤 완료를 표시합니다.',
   };
 });
