@@ -47,6 +47,10 @@ dist/
 - Vercel CLI를 통해 대표님의 개인 팀 스코프(`yegomnes-projects`)에 `for1` 프로젝트를 생성 및 링크.
 - GitHub `yegomne/for1` 리포지토리와 연동하여 향후 Git Push 시 Vercel에서 자동 무중단 배포가 트리거되도록 설정.
 
+### ⑦ 2026-10-01 추가 업데이트 (오프라인 샘플 및 UI 개선)
+- `src/prepared-samples.js` 및 `src/sample-ui.jsx` 추가: 외부 AI 호출 없이도 90개 전 미션에 고유 예제와 데이터 테이블을 즉각 확인할 수 있는 오프라인 샘플 UI 구현.
+- `npm test` 테스트 케이스 7개 전체 통과 및 단일 HTML(`BUILD90-교육페이지.html`) 최신 번들 재생성 반영.
+
 ---
 
 ## 3. 🛠️ 기술 스택 및 빌드 스펙 (참고용)
